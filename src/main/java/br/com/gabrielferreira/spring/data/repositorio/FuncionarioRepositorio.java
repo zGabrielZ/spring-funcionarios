@@ -2,6 +2,7 @@ package br.com.gabrielferreira.spring.data.repositorio;
 import br.com.gabrielferreira.spring.data.entidade.Funcionario;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface FuncionarioRepositorio extends CrudRepository<Funcionario,Long> {
+public interface FuncionarioRepositorio extends PagingAndSortingRepository<Funcionario,Long> {
 
     List<Funcionario> findByNomeLike(String nome); // Procurar por nome que vai retornar uma lista
 

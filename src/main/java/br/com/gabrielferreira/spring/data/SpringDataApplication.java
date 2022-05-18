@@ -9,6 +9,10 @@ import br.com.gabrielferreira.spring.data.service.UnidadeService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -114,6 +118,12 @@ public class SpringDataApplication implements CommandLineRunner {
 				, LocalDate.parse("2019-06-03"),cargoResultado4,unidadeResultado4);
 		funcionarioService.inserir(funcionario4);
 
+		Cargo cargoResultado5 = cargoService.mostrarCargo(cargo3.getId());
+		Unidade unidadeResultado5 = unidadeService.mostrarUnidade(unidade3.getId());
+		Funcionario funcionario5 = new Funcionario(null,"Mariana Ferreira","80739627058", BigDecimal.valueOf(5000.00)
+				, LocalDate.parse("2020-03-11"),cargoResultado5,unidadeResultado5);
+		funcionarioService.inserir(funcionario5);
+
 		System.out.println("Buscar por nome de funcionários !!");
 		List<Funcionario> funcionarios = relatorioService.buscarFuncionarioPorNome("Lucas");
 			funcionarios.forEach(System.out::println);
@@ -134,5 +144,13 @@ public class SpringDataApplication implements CommandLineRunner {
 		System.out.println("Buscar por data contratação native query !!");
 		List<Funcionario> funcionariosDataContratacao = relatorioService.buscarFuncionarioPorDataContratacao(LocalDate.parse("01/01/2019",formatter));
 		funcionariosDataContratacao.forEach(System.out::println);
+
+		System.out.println("Paginação de funcionários !!!");
+		int pagina = 0; int quantidadeRegistro = 2; String direcao = "ASC"; String ordenarPor = "nome";
+		Pageable pageable = PageRequest.of(pagina,quantidadeRegistro, Sort.Direction.valueOf(direcao),ordenarPor);
+		Page<Funcionario> funcionariosPaginacao = relatorioService.paginacao(pageable);
+		System.out.println("Página atual : " + funcionariosPaginacao.getNumber());
+		System.out.println("Total de elementos : " + funcionariosPaginacao.getTotalElements());
+		funcionariosPaginacao.forEach(System.out::println);
 	}
 }
