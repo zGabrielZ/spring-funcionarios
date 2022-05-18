@@ -5,6 +5,7 @@ import br.com.gabrielferreira.spring.data.repositorio.FuncionarioRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,6 +27,10 @@ public class RelatorioService {
 
     public List<Funcionario> buscarFuncionarioPorMenorOuIgualSalario(BigDecimal salario){
         return funcionarioRepositorio.findBySalarioLessThanEqual(salario);
+    }
+
+    public List<Funcionario> buscarFuncionarioPorNomeDataContratacaoSalarioMaiorIgual(String nome, LocalDate dataContratacao, BigDecimal salario){
+        return funcionarioRepositorio.buscarNomeDataContratacaoSalarioMaiorIgual(nome,dataContratacao,salario);
     }
 
 }

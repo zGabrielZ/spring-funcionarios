@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @SpringBootApplication // Utilizamos essa anotação para percorrer em todas as anotações que está envolvido no projeto e executar
@@ -23,6 +24,8 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final FuncionarioService funcionarioService;
 
 	private final RelatorioService relatorioService;
+
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	public SpringDataApplication(CargoService cargoService, UnidadeService unidadeService, FuncionarioService funcionarioService,RelatorioService relatorioService){
 		this.cargoService = cargoService;
@@ -122,5 +125,10 @@ public class SpringDataApplication implements CommandLineRunner {
 		System.out.println("Buscar por salário e retornar funcionário por menor ou igual !!");
 		List<Funcionario> funcionariosSalarioMenorOuIgual = relatorioService.buscarFuncionarioPorMenorOuIgualSalario(BigDecimal.valueOf(3500.00));
 		funcionariosSalarioMenorOuIgual.forEach(System.out::println);
+
+		System.out.println("Buscar por nome, data e salário");
+		List<Funcionario> funcionariosNomeDataContratacaoSalario = relatorioService
+				.buscarFuncionarioPorNomeDataContratacaoSalarioMaiorIgual("Lucas da Silva",LocalDate.parse("03/06/2019",formatter),BigDecimal.valueOf(2000.00));
+		funcionariosNomeDataContratacaoSalario.forEach(System.out::println);
 	}
 }
