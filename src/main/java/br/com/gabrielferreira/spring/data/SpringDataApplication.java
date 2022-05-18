@@ -130,5 +130,9 @@ public class SpringDataApplication implements CommandLineRunner {
 		List<Funcionario> funcionariosNomeDataContratacaoSalario = relatorioService
 				.buscarFuncionarioPorNomeDataContratacaoSalarioMaiorIgual("Lucas da Silva",LocalDate.parse("03/06/2019",formatter),BigDecimal.valueOf(2000.00));
 		funcionariosNomeDataContratacaoSalario.forEach(System.out::println);
+
+		System.out.println("Buscar por data contratação native query !!");
+		List<Funcionario> funcionariosDataContratacao = relatorioService.buscarFuncionarioPorDataContratacao(LocalDate.parse("01/01/2019",formatter));
+		funcionariosDataContratacao.forEach(System.out::println);
 	}
 }

@@ -20,4 +20,8 @@ public interface FuncionarioRepositorio extends CrudRepository<Funcionario,Long>
 
     @Query("SELECT f FROM Funcionario f where f.nome = :nome and f.dataContratacao = :dataContratacao and f.salario >= :salario")
     List<Funcionario> buscarNomeDataContratacaoSalarioMaiorIgual(@Param("nome") String nome,@Param("dataContratacao") LocalDate dataContratacao,@Param("salario") BigDecimal salario);
+
+    @Query(value = "SELECT f.* FROM funcionarios f where f.data_contratacao >= :dataContratacao",nativeQuery = true)
+    List<Funcionario> buscarDataContratacaoMaiorIgual(@Param("dataContratacao") LocalDate dataContratacao);
+
 }

@@ -33,4 +33,8 @@ public class RelatorioService {
         return funcionarioRepositorio.buscarNomeDataContratacaoSalarioMaiorIgual(nome,dataContratacao,salario);
     }
 
+    public List<Funcionario> buscarFuncionarioPorDataContratacao(LocalDate dataContratacao){
+        return funcionarioRepositorio.buscarDataContratacaoMaiorIgual(dataContratacao);
+    }
+
 }
