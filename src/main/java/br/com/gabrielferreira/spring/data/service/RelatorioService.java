@@ -3,9 +3,11 @@ package br.com.gabrielferreira.spring.data.service;
 import br.com.gabrielferreira.spring.data.entidade.Funcionario;
 import br.com.gabrielferreira.spring.data.entidade.dto.FuncionarioDTO;
 import br.com.gabrielferreira.spring.data.entidade.projecao.FuncionarioProjecao;
+import br.com.gabrielferreira.spring.data.especificacao.FuncionarioEspecificacao;
 import br.com.gabrielferreira.spring.data.repositorio.FuncionarioRepositorio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -51,6 +53,17 @@ public class RelatorioService {
 
     public List<FuncionarioDTO> buscarFuncionariosDto(){
         return funcionarioRepositorio.buscarFuncionariosDto();
+    }
+
+    public List<Funcionario> buscarFuncionariosDinamico(String nome,String cpf, BigDecimal salario, LocalDate data, String cargo, String unidade){
+        return funcionarioRepositorio.findAll(Specification.where(
+                FuncionarioEspecificacao.buscarNome(nome)
+                        .and(FuncionarioEspecificacao.buscarCpf(cpf))
+                        .and(FuncionarioEspecificacao.buscarSalario(salario))
+                        .and(FuncionarioEspecificacao.buscarDataContratacao(data))
+                        .and(FuncionarioEspecificacao.buscarCargo(cargo))
+                        .and(FuncionarioEspecificacao.buscarUnidade(unidade))
+        ));
     }
 
 }

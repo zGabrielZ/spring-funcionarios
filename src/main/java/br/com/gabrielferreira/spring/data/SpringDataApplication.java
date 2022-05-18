@@ -162,5 +162,10 @@ public class SpringDataApplication implements CommandLineRunner {
 		System.out.println("Funcionários DTO !!!");
 		List<FuncionarioDTO> funcionarioDTOS = relatorioService.buscarFuncionariosDto();
 		funcionarioDTOS.forEach(System.out::println);
+
+		System.out.println("Funcionarios consulta dinamica");
+		List<Funcionario> funcionariosDinamicos = relatorioService
+				.buscarFuncionariosDinamico("Lu",null,BigDecimal.valueOf(1000.00),null,null,null);
+		funcionariosDinamicos.forEach(System.out::println);
 	}
 }
