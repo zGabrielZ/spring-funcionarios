@@ -1,5 +1,6 @@
 package br.com.gabrielferreira.spring.data.repositorio;
 import br.com.gabrielferreira.spring.data.entidade.Funcionario;
+import br.com.gabrielferreira.spring.data.entidade.projecao.FuncionarioProjecao;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -24,5 +25,8 @@ public interface FuncionarioRepositorio extends PagingAndSortingRepository<Funci
 
     @Query(value = "SELECT f.* FROM funcionarios f where f.data_contratacao >= :dataContratacao",nativeQuery = true)
     List<Funcionario> buscarDataContratacaoMaiorIgual(@Param("dataContratacao") LocalDate dataContratacao);
+
+    @Query(value = "SELECT f.id,f.nome,f.salario FROM funcionarios f order by f.salario desc",nativeQuery = true)
+    List<FuncionarioProjecao> buscarFuncionariosProjecao();
 
 }

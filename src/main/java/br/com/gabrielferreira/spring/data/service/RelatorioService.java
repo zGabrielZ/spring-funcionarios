@@ -1,6 +1,7 @@
 package br.com.gabrielferreira.spring.data.service;
 
 import br.com.gabrielferreira.spring.data.entidade.Funcionario;
+import br.com.gabrielferreira.spring.data.entidade.projecao.FuncionarioProjecao;
 import br.com.gabrielferreira.spring.data.repositorio.FuncionarioRepositorio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,10 @@ public class RelatorioService {
 
     public Page<Funcionario> paginacao(Pageable pageable){
         return funcionarioRepositorio.findAll(pageable);
+    }
+
+    public List<FuncionarioProjecao> buscarFuncionariosProjecao(){
+        return funcionarioRepositorio.buscarFuncionariosProjecao();
     }
 
 }
