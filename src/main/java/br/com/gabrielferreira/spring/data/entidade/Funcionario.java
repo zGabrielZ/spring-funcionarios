@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(exclude = {"cargo"})
+@ToString(exclude = {"cargo","unidade"})
 public class Funcionario implements Serializable {
 
     private static final long serialVersionUID = 6156813811593956897L;

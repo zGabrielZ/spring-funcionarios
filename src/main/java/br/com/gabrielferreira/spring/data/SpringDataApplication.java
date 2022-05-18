@@ -4,6 +4,7 @@ import br.com.gabrielferreira.spring.data.entidade.Funcionario;
 import br.com.gabrielferreira.spring.data.entidade.Unidade;
 import br.com.gabrielferreira.spring.data.service.CargoService;
 import br.com.gabrielferreira.spring.data.service.FuncionarioService;
+import br.com.gabrielferreira.spring.data.service.RelatorioService;
 import br.com.gabrielferreira.spring.data.service.UnidadeService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication // Utilizamos essa anotação para percorrer em todas as anotações que está envolvido no projeto e executar
 public class SpringDataApplication implements CommandLineRunner {
@@ -20,10 +22,13 @@ public class SpringDataApplication implements CommandLineRunner {
 
 	private final FuncionarioService funcionarioService;
 
-	public SpringDataApplication(CargoService cargoService, UnidadeService unidadeService, FuncionarioService funcionarioService){
+	private final RelatorioService relatorioService;
+
+	public SpringDataApplication(CargoService cargoService, UnidadeService unidadeService, FuncionarioService funcionarioService,RelatorioService relatorioService){
 		this.cargoService = cargoService;
 		this.unidadeService = unidadeService;
 		this.funcionarioService = funcionarioService;
+		this.relatorioService = relatorioService;
 	}
 
 	public static void main(String[] args) {
@@ -99,5 +104,23 @@ public class SpringDataApplication implements CommandLineRunner {
 		Funcionario funcionario3 = new Funcionario(null,"Lucas Pereira","04538018031", BigDecimal.valueOf(3500.00)
 				, LocalDate.parse("2022-01-05"),cargoResultado3,unidadeResultado3);
 		funcionarioService.inserir(funcionario3);
+
+		Cargo cargoResultado4 = cargoService.mostrarCargo(cargo3.getId());
+		Unidade unidadeResultado4 = unidadeService.mostrarUnidade(unidade3.getId());
+		Funcionario funcionario4 = new Funcionario(null,"Lucas da Silva","00325429090", BigDecimal.valueOf(4600.00)
+				, LocalDate.parse("2019-06-03"),cargoResultado4,unidadeResultado4);
+		funcionarioService.inserir(funcionario4);
+
+		System.out.println("Buscar por nome de funcionários !!");
+		List<Funcionario> funcionarios = relatorioService.buscarFuncionarioPorNome("Lucas");
+			funcionarios.forEach(System.out::println);
+
+		System.out.println("Buscar por salário e retornar funcionários por maior ou igual !!");
+		List<Funcionario> funcionariosSalarioMaiorOuIgual = relatorioService.buscarFuncionarioPorMaiorOuIgualSalario(BigDecimal.valueOf(3500.00));
+		funcionariosSalarioMaiorOuIgual.forEach(System.out::println);
+
+		System.out.println("Buscar por salário e retornar funcionário por menor ou igual !!");
+		List<Funcionario> funcionariosSalarioMenorOuIgual = relatorioService.buscarFuncionarioPorMenorOuIgualSalario(BigDecimal.valueOf(3500.00));
+		funcionariosSalarioMenorOuIgual.forEach(System.out::println);
 	}
 }
