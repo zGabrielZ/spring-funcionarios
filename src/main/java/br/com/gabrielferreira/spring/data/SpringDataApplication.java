@@ -2,6 +2,7 @@ package br.com.gabrielferreira.spring.data;
 import br.com.gabrielferreira.spring.data.entidade.Cargo;
 import br.com.gabrielferreira.spring.data.entidade.Funcionario;
 import br.com.gabrielferreira.spring.data.entidade.Unidade;
+import br.com.gabrielferreira.spring.data.entidade.dto.FuncionarioDTO;
 import br.com.gabrielferreira.spring.data.entidade.projecao.FuncionarioProjecao;
 import br.com.gabrielferreira.spring.data.service.CargoService;
 import br.com.gabrielferreira.spring.data.service.FuncionarioService;
@@ -157,5 +158,9 @@ public class SpringDataApplication implements CommandLineRunner {
 		System.out.println("Funcionários Projeção !!!");
 		List<FuncionarioProjecao> funcionarioProjecaos = relatorioService.buscarFuncionariosProjecao();
 		funcionarioProjecaos.forEach(f -> System.out.println(f.getId() + " / " + f.getNome() + " / " + f.getSalario()));
+
+		System.out.println("Funcionários DTO !!!");
+		List<FuncionarioDTO> funcionarioDTOS = relatorioService.buscarFuncionariosDto();
+		funcionarioDTOS.forEach(System.out::println);
 	}
 }

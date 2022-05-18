@@ -1,6 +1,7 @@
 package br.com.gabrielferreira.spring.data.service;
 
 import br.com.gabrielferreira.spring.data.entidade.Funcionario;
+import br.com.gabrielferreira.spring.data.entidade.dto.FuncionarioDTO;
 import br.com.gabrielferreira.spring.data.entidade.projecao.FuncionarioProjecao;
 import br.com.gabrielferreira.spring.data.repositorio.FuncionarioRepositorio;
 import org.springframework.data.domain.Page;
@@ -46,6 +47,10 @@ public class RelatorioService {
 
     public List<FuncionarioProjecao> buscarFuncionariosProjecao(){
         return funcionarioRepositorio.buscarFuncionariosProjecao();
+    }
+
+    public List<FuncionarioDTO> buscarFuncionariosDto(){
+        return funcionarioRepositorio.buscarFuncionariosDto();
     }
 
 }
